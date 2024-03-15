@@ -13,27 +13,35 @@ namespace ElevenCardGame
 		//4. check for validation
 		//5. determine winner
 
+		private bool valid;
+
 		public NPC()
 		{
 		}
 
 		public bool IsValid(List<Card> SelectedCards)
 		{
-			//if (SelectedCards == null || SelectedCards.Count != 2)
-				//throw new ArgumentException("Invalid selection. Please select exactly 2 cards.");
 			//size is 2 in this 11 card game, player selects 2 cards
 			int selectedRank = 0;
+			int numQueen = 0;
+			//set combinationSize track on SelectedCards
+			int combinationSize = SelectedCards.Count;
+
 			foreach (Card card in SelectedCards)
 			{
 				selectedRank += (int)card.Rank;
+				//check for number of Q
+				if (card.Rank == Rank.Queen)
+					numQueen++;
 			}
-			//valid rank
-			//int expectedRank = 11;
-			////J-11 + Q-12 + K-13 = 36
-			//int expectedJQK = 36;
-			//QQQ? = 36 too needs to exclude this case by specify count size
+			if (selectedRank == 11 && combinationSize == 2)
+				valid = true;
+			else if (selectedRank == 36 && combinationSize == 3 && numQueen == 1)
+				valid = true;
+			else
+				valid = false;
 
-			return selectedRank == 11 || selectedRank == 36;
+			return valid;
 		}
 	}
 }

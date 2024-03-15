@@ -6,10 +6,9 @@ namespace ElevenCardGame
 		private List<Card> selectedCards = new List<Card>();
 		private string name;
 		private int score;
-		//regular case: player select 2 cards to add up
-		private int combinationSize = 2;
 		private int totalRank = 0;
-		
+		private bool foundJQK;
+
 
 		public Player(string name)
 		{
@@ -32,37 +31,44 @@ namespace ElevenCardGame
 		{
 			return selectedCards.Count;
 		}
-
 		//player select cards from the board
 		public void SelectCards(Card card)
 		{
-			Card selectedCard = new Card(card.Rank, card.Suit);
-			//regular case select 2 cards
-			if (selectedCards.Count < combinationSize)
-			{
-				this.selectedCards.Add(selectedCard);
-			}
-
-			else if (selectedCards.Count > combinationSize)
-				Console.WriteLine("Player has reach the limit of selection.");
+				selectedCards.Add(card);
 		}
-
+		// if player selected JQK
+		public bool FoundJQK(List<Card> cards)
+		{
+			foundJQK = false;// JQK card not found
+			// check if any of the selected cards are J, Q, or K
+			foreach (Card card in cards)
+			{
+				if (card.Rank == Rank.Jack || card.Rank == Rank.Queen || card.Rank == Rank.King)
+				{
+					foundJQK = true; // JQK card found
+				}
+			}
+			return foundJQK;
+		}
+		
 		public List<Card> GetSelectedCards()
 		{
 			return selectedCards;
 		}
-		public int CalculateRank(List<Card> SelectedCards)
-		{
-			foreach (Card selectedCard in SelectedCards)
-			{
-				totalRank += (int)selectedCard.Rank; // add the rank of each selected card
-			}
-			return totalRank;
-		}
 		// clear selected cards
-		public void ClearSelectedCards()
+		public void ClearSelectedCards_Rank()
 		{
 			selectedCards.Clear();
+			totalRank = 0;
+		}
+		
+		public void CalculateRank(Card selectedCard)
+		{
+			totalRank += (int)selectedCard.Rank;
+		}
+		public int GetCurrentRank()
+		{
+			return totalRank;
 		}
 	}
 }

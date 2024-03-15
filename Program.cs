@@ -22,20 +22,18 @@ namespace ElevenCardGame
 			while (!GameOver(computer, board))
 			{
 				//player select card from the board
-				PlayerInput();
-				//player selects second card
-				PlayerInput();
-				//check if JQK selected
-				//2 cards regular case, 3 cards for JQK
-				//if selected any of JQK, input one more time
-				if (foundJQK(player.GetSelectedCards()))
+				//rank is recorded along with player input
+				//CombinationSize includes regular case 2 and JQK case 3
+				//PlayerInput();
+				for (int i = 0; i < 2; i++)
 				{
 					PlayerInput();
 				}
-				//----a problem here: CalculateRank() can't get third input if foundJQK-----
-				//calculate rank
-				Console.WriteLine("Your rank is: " + player.CalculateRank(player.GetSelectedCards()));
-				//computer check for validation, if valid remove cards from board
+				if (player.FoundJQK(player.GetSelectedCards()))
+					PlayerInput();
+
+				//computer check for validation
+				//if valid, remove cards from board && reset rank
 				RemoveValidCombination();
 				//display board
 				CurrentCardsOnBoard(board);
@@ -63,7 +61,7 @@ namespace ElevenCardGame
 			}
 		}
 
-		//Player select card now
+		//Player select card && record current rank
 		public static void PlayerInput()
 		{
 			Console.WriteLine("\nPick a card: ");
@@ -72,21 +70,12 @@ namespace ElevenCardGame
 			Console.WriteLine($"You have selected: {selectedCard.Rank} {selectedCard.Suit}");
 			player.SelectCards(selectedCard);
 			Console.WriteLine("Card selected successfully.");
-		}
-		public static bool foundJQK(List<Card> cards)
-		{
-			// check if any of the selected cards are J, Q, or K
-			foreach (Card card in cards)
-			{
-				if (card.Rank == Rank.Jack || card.Rank == Rank.Queen || card.Rank == Rank.King)
-				{
-					return true; // JQK card found
-				}
-			}
-			return false; // JQK card not found
+			player.CalculateRank(selectedCard);
+			Console.WriteLine("Your current rank is: " + player.GetCurrentRank());
 		}
 
-		//computer check for validation, if valid, remove cards from board
+		//computer check for validation
+		//if valid, remove cards from board, reset rank selected
 		public static void RemoveValidCombination()
 		{
 			if (computer.IsValid(player.GetSelectedCards()))
@@ -95,10 +84,13 @@ namespace ElevenCardGame
 				Console.WriteLine("Valid combination! Cards have been removed.");
 				//only add card to the board after removed valid card combination
 				BoardInitialize();
+				//clear calculated total rank from cards selected previously
+				player.ClearSelectedCards_Rank();
 			}
 			else
 			{
 				Console.WriteLine("Invalid combination. Please select again.");
+				player.ClearSelectedCards_Rank();
 			}
 		}
 		//display cards on board
@@ -118,7 +110,7 @@ namespace ElevenCardGame
 			//player lose
 			else if (!board.HasValidCombination() && !board.Empty())
 				return true;
-
+			//can add 1 more, player submission limit
 			return false;
 		}
 
