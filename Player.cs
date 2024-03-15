@@ -2,41 +2,58 @@
 namespace ElevenCardGame
 {
 	public class Player
-	{
-		private List<Card> selectedCards = new List<Card>(); // has to be non-nullable
+	{   // has to be non-nullable since player has to select card
+		private List<Card> selectedCards = new List<Card>();
+		private string name;
 		private int score;
-		private int selectedCardNum = 2;
-		private int totalRank = 0;
+		private int combinationSize = 3;
+		private int totalRank;
+		
 
-		public Player()
+		public Player(string name)
 		{
+			this.name = name;
 			score = 0;
 		}
-		//if valid, score ++
-		public int Score()
+
+		public string Name
 		{
-			return score;
+			get { return name; }
+		}
+		//if valid, score ++
+		public int Score
+		{
+			get { return score; }
 		}
 
-		//player input format needs to be reconsidered, how to select a card?
+		//number of cards selected
+		public int NumCardsSelected()
+		{
+			return selectedCards.Count;
+		}
+
+		//2 cards can be selected in regular situation, 3 cards for JQK
+		//--------------------------------
+
+		//player can select cards from the board
+		//needs to interact with board
 		public List<Card> SelectCards(Card card)
 		{
 			if (selectedCards.Count == 0)
 				Console.WriteLine("Player didn't selected any card.");
-			if (selectedCards.Count < selectedCardNum)
+			else if (selectedCards.Count < combinationSize)
 			{
-				Card selectedCard = new Card(card.Suit, card.Rank);
+				Card selectedCard = new Card(card.Rank, card.Suit);
 				selectedCards.Add(selectedCard);
-				CalculateRank();
 			}
-			else if (selectedCards.Count > selectedCardNum)
+			else if (selectedCards.Count > combinationSize)
 				Console.WriteLine("Player have reach the limit of selection.");
 			return selectedCards;
 		}
 
-		private void CalculateRank()
+		private void CalculateRank(List<Card> SelectedCards)
 		{
-			foreach (Card selectedCard in selectedCards)
+			foreach (Card selectedCard in SelectedCards)
 			{
 				totalRank += (int)selectedCard.Rank; // add the rank of each selected card
 			}

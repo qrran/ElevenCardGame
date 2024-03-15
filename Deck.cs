@@ -15,7 +15,7 @@ namespace ElevenCardGame
 			{
 				foreach (Suit suit in Enum.GetValues(typeof(Suit))) //convert to array
 				{
-					cards.Add(new Card(suit, rank));
+					cards.Add(new Card(rank, suit));
 				}
 			}
 		}

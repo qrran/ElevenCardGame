@@ -18,7 +18,7 @@ namespace ElevenCardGame
 		public bool FaceUp { get { return faceUp; } }
 
 		// Constructor
-		public Card(Suit suit, Rank rank)
+		public Card(Rank rank, Suit suit)
 		{
 			this.suit = suit;
 			this.rank = rank;
@@ -28,6 +28,25 @@ namespace ElevenCardGame
 		public void FlipOver()
 		{
 			faceUp = true;
+		}
+		//convert string to Card
+		public static Card Parse(string cardString)
+		{
+			// split the string by space to separate rank and suit
+			string[] parts = cardString.Split(' ');
+
+			if (!Enum.TryParse(parts[0], out Rank rank))
+			{
+				throw new ArgumentException("Invalid card rank.");
+			}
+
+			if (!Enum.TryParse(parts[1], out Suit suit))
+			{
+				throw new ArgumentException("Invalid card suit.");
+			}
+
+			// create and return a new Card object
+			return new Card(rank, suit);
 		}
 
 	}

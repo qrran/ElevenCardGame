@@ -52,7 +52,8 @@ namespace ElevenCardGame
 		{
 			if (IsValid(SelectedCards))
 			{
-				playBoard.RemoveCards(SelectedCards);
+				foreach (Card card in SelectedCards)
+					playBoard.RemoveCards(card);
 				Console.WriteLine("Valid combination! Cards have been removed.");
 			}
 			else

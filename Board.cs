@@ -6,7 +6,7 @@ namespace ElevenCardGame
 	public class Board
 	{
 		//9 card slots
-		List<Card> cardsOnBoard = new List<Card>(0);
+		List<Card> cardsOnBoard = new List<Card>();
 		//// cards that computer has --- needs to make it local
 		//NPC cardHoldByNPC = new NPC();
 		// put 9 cards on board
@@ -18,12 +18,7 @@ namespace ElevenCardGame
 		//initialize Board with 9 cards
 		public Board()
 		{
-			//initialize board with 9 cards from NPC
-			//for (int i = 0; i < boardSize; i++)
-			//{
-			//	cardsOnBoard.Add(cardHoldByNPC.TakeTopCard());
-			//}
-			//should be initialized to an empty board
+			//default empty board
 			full = false;
 		}
 		public List<Card> CardsOnBoard()
@@ -103,18 +98,21 @@ namespace ElevenCardGame
 			return NumValidCombination() > 0;
 		}
 
-		public void RemoveCards(List<Card> SelectedCards)
+		//add or remove cards if there's empty spaces on board
+		//remove one card at a time
+		public void RemoveCards(Card selectedCards)
 		{
 			// remove selected cards from cardsOnBoard
-			this.cardsOnBoard.RemoveAll(card => SelectedCards.Contains(card));
+			//this.cardsOnBoard.RemoveAll(card => SelectedCards.Contains(card));
+			cardsOnBoard.Remove(selectedCards);
 
 			// update current cards on board after deleted valid combination
-			this.cardsOnBoard = new List<Card>(cardsOnBoard);
+			cardsOnBoard = new List<Card>(cardsOnBoard);
 		}
 		public void AddCards(NPC cardHoldByNPC)
 		{
 			//add up to 9 cards
-			while (!Full() && cardsOnBoard.Count <= boardSize)
+			while (!full && cardsOnBoard.Count <= boardSize)
 			{
 				cardsOnBoard.Add(cardHoldByNPC.TakeTopCard());
 			}
