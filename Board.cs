@@ -100,22 +100,31 @@ namespace ElevenCardGame
 
 		//add or remove cards if there's empty spaces on board
 		//remove one card at a time
-		public void RemoveCards(Card selectedCards)
+		public void RemoveCards(List<Card> selectedCards)
 		{
+			//create a copy
+			List<Card> cardsToRemove = new List<Card>();
 			// remove selected cards from cardsOnBoard
-			//this.cardsOnBoard.RemoveAll(card => SelectedCards.Contains(card));
-			cardsOnBoard.Remove(selectedCards);
-
-			// update current cards on board after deleted valid combination
-			cardsOnBoard = new List<Card>(cardsOnBoard);
-		}
-		public void AddCards(NPC cardHoldByNPC)
-		{
-			//add up to 9 cards
-			while (!full && cardsOnBoard.Count <= boardSize)
+			foreach (Card card in selectedCards)
 			{
-				cardsOnBoard.Add(cardHoldByNPC.TakeTopCard());
+				foreach (Card card2 in cardsOnBoard)
+				{
+					if (card.Rank == card2.Rank && card.Suit == card2.Suit)
+					{
+						cardsToRemove.Add(card2);
+					}
+				}
 			}
+
+			foreach (Card cardToRemove in cardsToRemove)
+			{
+				cardsOnBoard.Remove(cardToRemove);
+			}
+
+		}
+		public void AddCards(Card card)
+		{
+			cardsOnBoard.Add(card);
 		}
 
 	}

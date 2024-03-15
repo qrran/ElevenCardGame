@@ -19,32 +19,46 @@ namespace ElevenCardGame
 			//1. set up cards on board
 			//computer.Shuffle();
 			//computer.Print();
-			board.AddCards(computer);
-			Console.WriteLine("Current cards on the board: \n");
+			//board.AddCards(computer.TakeTopCard());
+			//add up to 9 cards
+			while (!board.Full() && board.CardsOnBoard().Count < 9)
+			{
+				board.AddCards(computer.TakeTopCard());
+			}
 			CurrentCardsOnBoard(board);
-			//computer.Print();
+
+			Console.WriteLine("\nPick a card: ");
+			string input = Console.ReadLine();
+			Card selectedCard = Card.Parse(input);
+			Console.WriteLine($"You have selected{selectedCard.Rank} {selectedCard.Suit}");
+			//List<Card> selectedCardList = new List<Card>();
+			player.SelectCards(selectedCard);
+			//Console.WriteLine("selected: " + player.SelectCards(selectedCard));
+			board.RemoveCards(player.GetSelectedCards());
+			CurrentCardsOnBoard(board);
 
 			//2. player select cards until the game is over
-			while (!GameOver(computer, board))
-			{
-				Console.WriteLine("\nPick a card: ");
-				string input = Console.ReadLine();
-				Console.WriteLine(input);
-				// Parse the input string into a Card object
-				try
-				{
-					Card selectedCard = Card.Parse(input);
-					player.SelectCards(selectedCard);
-					board.RemoveCards(selectedCard);
-					CurrentCardsOnBoard(board);
-				}
-				catch (ArgumentException)
-				{
-					// If the conversion fails, display an error message and prompt the user to try again
-					Console.WriteLine("Invalid input. Please enter a valid card (e.g., Ace Spades).");
-				}
-			}
-			
+			//while (!GameOver(computer, board))
+			//{
+			//	Console.WriteLine("\nPick a card: ");
+			//	string input = Console.ReadLine();
+			//	Card selectedCard = Card.Parse(input);
+			//	List<Card> selectedCardList = new List<Card>();
+			//	selectedCardList.Add(selectedCard);
+			//	// Parse the input string into a Card object
+			//	try
+			//	{
+			//		player.SelectCards(selectedCard);
+			//		board.RemoveCards(selectedCardList);
+			//		CurrentCardsOnBoard(board);
+			//	}
+			//	catch (ArgumentException)
+			//	{
+			//		// If the conversion fails, display an error message and prompt the user to try again
+			//		Console.WriteLine("reenter.");
+			//	}
+			//}
+
 		}
 		/////////Display//////////
 		//cards on board

@@ -35,22 +35,22 @@ namespace ElevenCardGame
 		//2 cards can be selected in regular situation, 3 cards for JQK
 		//--------------------------------
 
-		//player can select cards from the board
-		//needs to interact with board
-		public List<Card> SelectCards(Card card)
+		//player select cards from the board
+		public void SelectCards(Card card)
 		{
-			if (selectedCards.Count == 0)
-				Console.WriteLine("Player didn't selected any card.");
-			else if (selectedCards.Count < combinationSize)
+			Card selectedCard = new Card(card.Rank, card.Suit);
+			if (selectedCards.Count < combinationSize)
 			{
-				Card selectedCard = new Card(card.Rank, card.Suit);
-				selectedCards.Add(selectedCard);
+				this.selectedCards.Add(selectedCard);
 			}
 			else if (selectedCards.Count > combinationSize)
 				Console.WriteLine("Player have reach the limit of selection.");
-			return selectedCards;
 		}
 
+		public List<Card> GetSelectedCards()
+		{
+			return selectedCards;
+		}
 		private void CalculateRank(List<Card> SelectedCards)
 		{
 			foreach (Card selectedCard in SelectedCards)

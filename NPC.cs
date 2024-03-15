@@ -48,17 +48,17 @@ namespace ElevenCardGame
 			return selectedRank == expectedRank || selectedRank == expectedJQK;
 		}
 		//if valid, remove the cards selected by player to from the computer deck
-		public void RemoveValidSelection(Board playBoard, List<Card> SelectedCards)
-		{
-			if (IsValid(SelectedCards))
-			{
-				foreach (Card card in SelectedCards)
-					playBoard.RemoveCards(card);
-				Console.WriteLine("Valid combination! Cards have been removed.");
-			}
-			else
-				Console.WriteLine("Combination is not valid. Please try again.");
-		}
+		//public void RemoveValidSelection(Board playBoard, List<Card> SelectedCards)
+		//{
+		//	if (IsValid(SelectedCards))
+		//	{
+		//		foreach (Card card in SelectedCards)
+		//			playBoard.RemoveCards(card);
+		//		Console.WriteLine("Valid combination! Cards have been removed.");
+		//	}
+		//	else
+		//		Console.WriteLine("Combination is not valid. Please try again.");
+		//}
 	}
 }
 
