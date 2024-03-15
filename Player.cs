@@ -6,8 +6,9 @@ namespace ElevenCardGame
 		private List<Card> selectedCards = new List<Card>();
 		private string name;
 		private int score;
-		private int combinationSize = 3;
-		private int totalRank;
+		//regular case: player select 2 cards to add up
+		private int combinationSize = 2;
+		private int totalRank = 0;
 		
 
 		public Player(string name)
@@ -32,31 +33,31 @@ namespace ElevenCardGame
 			return selectedCards.Count;
 		}
 
-		//2 cards can be selected in regular situation, 3 cards for JQK
-		//--------------------------------
-
 		//player select cards from the board
 		public void SelectCards(Card card)
 		{
 			Card selectedCard = new Card(card.Rank, card.Suit);
+			//regular case select 2 cards
 			if (selectedCards.Count < combinationSize)
 			{
 				this.selectedCards.Add(selectedCard);
 			}
+
 			else if (selectedCards.Count > combinationSize)
-				Console.WriteLine("Player have reach the limit of selection.");
+				Console.WriteLine("Player has reach the limit of selection.");
 		}
 
 		public List<Card> GetSelectedCards()
 		{
 			return selectedCards;
 		}
-		private void CalculateRank(List<Card> SelectedCards)
+		public int CalculateRank(List<Card> SelectedCards)
 		{
 			foreach (Card selectedCard in SelectedCards)
 			{
 				totalRank += (int)selectedCard.Rank; // add the rank of each selected card
 			}
+			return totalRank;
 		}
 		// clear selected cards
 		public void ClearSelectedCards()

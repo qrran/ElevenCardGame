@@ -45,7 +45,7 @@ namespace ElevenCardGame
 				throw new ArgumentException("Invalid card suit.");
 			}
 
-			// create and return a new Card object
+			// create and return a new Card objectT
 			return new Card(rank, suit);
 		}
 

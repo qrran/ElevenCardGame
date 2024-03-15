@@ -7,8 +7,6 @@ namespace ElevenCardGame
 	{
 		//9 card slots
 		List<Card> cardsOnBoard = new List<Card>();
-		//// cards that computer has --- needs to make it local
-		//NPC cardHoldByNPC = new NPC();
 		// put 9 cards on board
 		private int boardSize = 9;
 		//check if board has all 9 cards
@@ -99,7 +97,7 @@ namespace ElevenCardGame
 		}
 
 		//add or remove cards if there's empty spaces on board
-		//remove one card at a time
+		//remove the list of card
 		public void RemoveCards(List<Card> selectedCards)
 		{
 			//create a copy
@@ -122,6 +120,7 @@ namespace ElevenCardGame
 			}
 
 		}
+		//add one card at a time
 		public void AddCards(Card card)
 		{
 			cardsOnBoard.Add(card);
