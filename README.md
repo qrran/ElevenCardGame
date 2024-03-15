@@ -1,11 +1,22 @@
 # ElevenCardGame
 
+ElevenCardGame is a console game developed using C#. The game starts with a full deck of 52 cards. Then, NPC(Non Player Character) will distribute 9 cards to the board for player to select. Player needs to select valid combinations and submit to NPC, if the combination is valid, NPC will remove the cards that Player selected from the board and add new cards to the board.<br>
+
+There are two valid combinations:<br>
+
+1. Player select **2 cards** that has their rank added exactly up to **11**.
+2. Player select **3 cards** with rank of "Jack", "Queen", "King" and order doesn't matter.<br>
+
+Player wins if there's no more cards left.<br>
+
+Player loses if there's no more valid combinations on board and still card left.
+
 ## How to Run?
 
 `cd ElevenCardGame`<br>
 `dotnet run`
 
-**Output**
+## Output
 
 ```plain
 Welcome to Eleven Card Game!
@@ -114,5 +125,6 @@ Pick a card:
 
 ## To-DO
 
-- improve user input cases
-- check for duplicate card selection
+- Add more error handling to different user input cases
+- Check for duplicate card selection
+- Quit the game if player want to quit
