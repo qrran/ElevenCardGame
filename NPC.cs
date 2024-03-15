@@ -44,6 +44,7 @@ namespace ElevenCardGame
 			int expectedRank = 11;
 			//J-11 + Q-12 + K-13 = 36
 			int expectedJQK = 36;
+			//QQQ? = 36 too needs to exclude this case by specify count size
 
 			return selectedRank == expectedRank || selectedRank == expectedJQK;
 		}

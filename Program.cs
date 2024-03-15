@@ -7,6 +7,7 @@ namespace ElevenCardGame
 
 		public static void Main()
 		{
+
 			//set up
 			NPC computer = new NPC();
 			Player player = new Player("Player 1");
@@ -36,28 +37,6 @@ namespace ElevenCardGame
 			//Console.WriteLine("selected: " + player.SelectCards(selectedCard));
 			board.RemoveCards(player.GetSelectedCards());
 			CurrentCardsOnBoard(board);
-
-			//2. player select cards until the game is over
-			//while (!GameOver(computer, board))
-			//{
-			//	Console.WriteLine("\nPick a card: ");
-			//	string input = Console.ReadLine();
-			//	Card selectedCard = Card.Parse(input);
-			//	List<Card> selectedCardList = new List<Card>();
-			//	selectedCardList.Add(selectedCard);
-			//	// Parse the input string into a Card object
-			//	try
-			//	{
-			//		player.SelectCards(selectedCard);
-			//		board.RemoveCards(selectedCardList);
-			//		CurrentCardsOnBoard(board);
-			//	}
-			//	catch (ArgumentException)
-			//	{
-			//		// If the conversion fails, display an error message and prompt the user to try again
-			//		Console.WriteLine("reenter.");
-			//	}
-			//}
 
 		}
 		/////////Display//////////
